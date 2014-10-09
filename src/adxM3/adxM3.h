@@ -1,10 +1,11 @@
-
+﻿// adxM3.h
+// 中文测试
 
 /**
- * @brief	adxM3��һ����arm cortex-m3Ϊ���ĵĴ������ĳ���ģ�ͽӿڣ�
- *			����Ϊͬ���Ĳ�ͬ������֮�������ֲ���м�ƽ̨��
- *			ʵ���û�����0�޸ĵĿ���ƽ̨��ֲ��
- *			��������ģ�ͽ�һ��������Ч�ô���⡣
+ * @brief	adxM3是一个以arm cortex-m3为核心的处理器的抽象模型接口，
+ *			可作为同核心不同处理器之间代码移植的中间平台，
+ *			实现用户代码0修改的快速平台移植。
+ *			并对外设模型进一步开发了效用代码库。
  *
  */
 
@@ -16,8 +17,8 @@
 
 /*
  * @folder	common
- * @brief	Ӳ��������޹ص�ͨ����
- *			�����������Ͷ��塢�������ݽṹ����������ͼ���������������ܵ�
+ * @brief	硬件抽象层无关的通用类
+ *			包含基本类型定义、基本数据结构、基本流、图形描述、辅助功能等
  */
 #include "common/defs.h"
 #include "common/TypeTraits.h"
@@ -43,7 +44,7 @@
 
 /*
  * @folder	Hadware Abstraction
- * @brief	Ӳ������ܹ��������Ը�������������ĳ���������Ӳ�����ʵĽӿ�
+ * @brief	硬件抽象架构，包含对各种外设或器件的抽象描述，硬件访问的接口
  */
 #include "HadwareAbstraction/Event/EventObject.h"
 #include "HadwareAbstraction/Event/EventListenerWrapper.h"
@@ -79,7 +80,7 @@
 
 /*
  * @folder	Utility
- * @brief	��Ӳ������Ľ�һ��������ƣ�����ͨѶ���������ݲɼ���Ч�ÿ��Ƶ�
+ * @brief	对硬件抽象的进一步功能设计，包含通讯器流、数据采集、效用控制等
  */
 
 #include "Utility/Stream/StreamBase.h"
@@ -92,8 +93,8 @@
 
 /*
  * @folder	Component Model
- * @brief	������ģ��ĳ���ʹ��adxM3���ṩ�ĳ���Ӳ����ĸ���������ģ��
- *			��ʵ���˳���Ӳ���ӿں󣬳��󲿼����ʹ��
+ * @brief	部件与模块的抽象，使用adxM3所提供的抽象硬件搭建的各个部件与模块
+ *			当实现了抽象硬件接口后，抽象部件则可使用
  */
 
 #include "ComponentModel/nRF24L01.h"
@@ -124,7 +125,7 @@
 
 /*
  * @folder	example
- * @brief	adxM3��������
+ * @brief	adxM3测试用例
  */
 
 #include "example/example.h"
