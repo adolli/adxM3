@@ -1,0 +1,56 @@
+
+#ifndef _ADX_HA_EVENTLISENERCONTAINER_H_
+#define _ADX_HA_EVENTLISENERCONTAINER_H_
+
+namespace adxM3
+{
+
+
+	/*
+	 * @brief	事件监听器外覆类
+	 *			用于包装事件监听器并使其指向默认的空白事件监听器
+	 * @tparam	ListenerType 事件监听器类型
+	 */
+	template< class ListenerType >
+	class EventListenerWrapper
+	{
+	public:
+
+		/*
+		 * @brief	事件监听器外附类默认构造函数
+		 * @param	l 监听器指针，初始化默认指向一个空白监听器
+		 */
+		EventListenerWrapper(ListenerType* l = new ListenerType())
+			: listener(l)
+		{
+		}
+
+		virtual ~EventListenerWrapper()
+		{
+			// 理论上监听器对象不消耗空间，在监听器外覆类析构时不把监听器销毁
+			// 需要进行内存负荷测试
+			// delete listener;
+		}
+
+
+		void SetEventListener(const ListenerType* l)
+		{
+			listener = const_cast<ListenerType*>(l);
+		}
+
+		ListenerType& GetEventListener() const
+		{
+			return *listener;
+		}
+
+
+		//typedef typename ListenerType::ResultType ResultType; 
+
+	protected:
+
+		ListenerType* listener;
+	};
+
+}
+
+#endif  /*_ADX_HA_EVENTLISENERCONTAINER_H_*/
