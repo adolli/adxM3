@@ -120,7 +120,9 @@ namespace adxM3
 		virtual bool TimerIsRunning() const = 0;
 
 
-		EventListenerWrapper<TimerUpdateListener> updateListener;
+		
+
+		EventListenerWrapper<TimerUpdateListener<Timer&> > updateListenerWrapper;
 
 	protected:
 

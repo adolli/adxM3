@@ -40,31 +40,11 @@ namespace adxM3
 
 
 
-		/*
-		 * @brief	添加事件监听器，监听事件对象的某个事件
-		 * @param	evt 对象的事件
-		 *			FnPtr 触发该事件时的处理函数，由派生类在实现时转换到所需的类型
-		 * @retval	成功注册某个事件监听器则返回1，否则返回0
+		/**
+		 * 已经弃用
 		 */
-		virtual int AddEventListener(EventType evt, void* FnPtr)
-		{
-			return 0;
-		}
-
-
-
-		/*
-		 * @brief	移除某个事件的监听器对象并关闭该事件通知
-		 * @param	evt 对象的事件
-		 * @retval	成功移除某个事件监听器则返回1，否则返回0
-		 * @ovride	派生类可选择不实现该方法，但建议实现
-		 */
-		virtual int RemoveEventListener(EventType evt)
-		{
-			DisableEventNotify(evt);
-			return 0;
-		}
-
+		virtual int AddEventListener(EventType, void*) { return 0; }
+		virtual int RemoveEventListener(EventType) { return 0; }
 
 
 	protected:

@@ -1,5 +1,4 @@
-// main.cpp
-
+  
 #include "adxM3.h"
 #include "adx_K60.h"
 
@@ -21,7 +20,7 @@ int main()
 	
 
 	TextStream<Communicator> urtios(URT);
-	urtios<<"hello K60!\r\n";
+	urtios << "hello K60!\r\n";
 
 
 	
@@ -34,33 +33,41 @@ int main()
 			ts<<"received: "<<by_char<<received<<" (ASCII 0x"<<by_ascii<<hex<<received<<")"<<endl;
 		}
 	};
-	URT.AddEventListener(new UART_EventListener());
+	URT.SetEventListener(new UART_EventListener());
 
 
-	Peripheral<PIT>::CH<0> timer1;
-	struct PIT_EventListener
+	Peripheral<PIT>::CH<0> timer0;
+	struct PIT_EventListener : public TimerUpdateListener<Timer&>
 	{
-		static void OnUpdate(Timer* This)
+		virtual void OnUpdate(Timer& This)
 		{		
 			
 		}
 	};
-	timer1.SetTimeOut(100000);
-	timer1.AddEventListener(Timer::TIME_OUT, PIT_EventListener::OnUpdate);
-	timer1.Start();
+	timer0.SetTimeOut(100000);
+	timer0.SetEventListener(new PIT_EventListener());
+	timer0.Start();
 
 	
 	
 	Peripheral<PIT>::CH<1> timer2_for_test;
-	struct timer2_EventListener
+	struct timer2_EventListener : public TimerUpdateListener<Timer&>
 	{
-		static void OnUpdate(Timer* This)
+		const char* message;
+		
+		timer2_EventListener(const char* msg)
+			: message(msg)
+		{}
+
+		virtual void OnUpdate(Timer& This)
 		{
+			This.Stop();
 			TextStream<Communicator> urtios(URT);
+			urtios << message << endl;
 		}
 	};
 	timer2_for_test.SetTimeOut(2000);
-	timer2_for_test.AddEventListener(Timer::TIME_OUT, timer2_EventListener::OnUpdate);
+	timer2_for_test.SetEventListener(new timer2_EventListener("test!"));
 
 	
 

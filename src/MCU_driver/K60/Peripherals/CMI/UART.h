@@ -671,7 +671,7 @@ namespace K60
 				return 0;
 			}
 		}
-		void AddEventListener(const ReceiveListener<UINT8>* rl)
+		void SetEventListener(const ReceiveListener<UINT8>* rl)
 		{
 			dataAvailableListenerWrapper.SetEventListener(rl);
 		}

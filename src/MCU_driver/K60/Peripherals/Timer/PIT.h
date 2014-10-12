@@ -289,30 +289,15 @@ namespace K60
 
 			/*
 			 * @brief	添加事件监听器，监听事件对象的某个事件
-			 * @param	evt 对象的事件
-			 *			FnPtr 触发该事件时的处理函数，由派生类在实现时转换到所需的类型
-			 * @retval	成功注册某个事件监听器则返回1，否则返回0
+			 * @param	l 监听器对象，需要实现该监听器对应接口
 			 */
-			virtual int AddEventListener(EventType evt, void* FnPtr)
+			void SetEventListener(const TimerUpdateListener<Timer&>* l)
 			{
-				switch (evt)
-				{
-				case TIME_OUT :
-					timeOutISR = FnPtr;
-					PeripheralInfo::BitBandAccess()
-						->CHANNEL[CHANNEL_INDEX].TCTRL[PIT_BitBandType::TCTRL_TIE] = SET;
-					return 1;
-
-				default:
-					return 0;
-				}
+				PeripheralInfo::BitBandAccess()
+					->CHANNEL[CHANNEL_INDEX].TCTRL[PIT_BitBandType::TCTRL_TIE] = SET;
+				updateListenerWrapper.SetEventListener(l);
 			}
 			
-
-
-
-			adxM3::Function< void(void*) > timeOutISR;
-
 
 
 

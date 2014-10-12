@@ -27,9 +27,9 @@ namespace adxM3
 
 		virtual ~EventListenerWrapper()
 		{
-			// 理论上监听器对象不消耗空间，在监听器外覆类析构时不把监听器销毁
+			// 空对象消耗1字节
 			// 需要进行内存负荷测试
-			// delete listener;
+			delete listener;
 		}
 
 
@@ -44,7 +44,6 @@ namespace adxM3
 		}
 
 
-		//typedef typename ListenerType::ResultType ResultType; 
 
 	protected:
 

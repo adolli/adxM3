@@ -4,12 +4,13 @@
 
 namespace adxM3
 {
+
+	template <class ContextType>
 	class TimerUpdateListener
 	{
 	public:
 
 		typedef void ReturnType;
-		typedef void* ContextType;
 		typedef void ParamType;
 
 		virtual ReturnType OnUpdate(ContextType context)

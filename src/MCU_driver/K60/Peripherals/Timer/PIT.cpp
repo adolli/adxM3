@@ -7,7 +7,9 @@ void PIT ##x## _IRQHandler(void)														\
 {																						\
 	Peripheral<PIT>::CH< x >& InstanceRef												\
 		= *static_cast<Peripheral<PIT>::CH< x >*>(PIT::InstancePtr[ x ]);				\
-	InstanceRef.updateListener.GetEventListener().OnUpdate(&InstanceRef);				\
+																						\
+	/* invoke callback function */														\
+	InstanceRef.updateListenerWrapper.GetEventListener().OnUpdate(InstanceRef);			\
 																						\
 	if (PIT::BaseAccess()->CHANNEL[ x ].LDVAL == 0)										\
 	{																					\
